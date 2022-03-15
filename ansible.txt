@@ -1,0 +1,23 @@
+sudo nano /etc/ansible/hosts
+sudo nano /etc/ansible/ansible_c*
+
+ansible-inventory --list -y
+
+
+
+ansible all -m ping -u preet
+ansible all -m ping -u demo
+ansible --list-hosts all
+
+
+
+ansible-playbook <>
+
+##copy ssh-keygen to users
+
+ssh-copy-id preet@ip
+
+
+
+
+
