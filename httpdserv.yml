@@ -15,6 +15,7 @@
 
           - name: Start the service
             service:
+               become: yes
                name: "{{ sname }}"
                state: started
                enabled: yes
