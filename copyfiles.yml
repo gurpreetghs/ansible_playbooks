@@ -1,0 +1,8 @@
+- hosts: all
+  become: yes  # change to root user become_user:root
+  
+  tasks:
+    - name: copy inedexfile 
+      copy:
+          dest: "/var/www/html/"
+          src: "index.html"

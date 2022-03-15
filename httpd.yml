@@ -1,0 +1,19 @@
+- hosts: all
+
+  become: yes
+  vars:
+    - sname: "httpd"
+  tasks:
+          - name: Download software
+            package:
+               name: "{{ sname }}"
+               state: present
+
+          - name: copy html file
+            copy:
+               dest: "/var/www/html/"
+               src: "home.html"
+
+          - name: Start the service
+            shell:
+                 "sudo service httpd start"
