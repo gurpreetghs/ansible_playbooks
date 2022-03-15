@@ -1,0 +1,18 @@
+- hosts: localhost
+  vars_files:
+          - secure.yml
+  tasks:
+          - name: provision os on aws
+            ec2:
+                    key_name: "testtf"
+                    instance_type: "t2.micro"
+                    image: "ami-0e1d30f2c40c4c701"
+                    wait: yes
+                    count: 1
+                    vpc_subnet_id: "subnet-fvfdjgbfk"
+                    assign_public_ip: yes
+                    region: "us-east-1"
+                    state: present
+                    group_id: "sg-1111111111"
+                    aws_access_key: ""
+                    aws_secret_key: ""

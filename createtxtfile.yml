@@ -1,0 +1,8 @@
+- hosts: all
+  tasks:
+  - name: Creating a file
+    copy:
+      dest: "/home/preet/demo.txt"
+      content: |
+        codsnvksdjnvks.jzdvnk
+        hello
