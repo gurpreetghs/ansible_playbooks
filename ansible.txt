@@ -21,3 +21,4 @@ ssh-copy-id preet@ip
 
 
 
+https://download.docker.com/linux/centos/7/x86_64/stable

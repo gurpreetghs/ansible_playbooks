@@ -1,0 +1,15 @@
+pip3 install boto
+pip3 install boto3
+ run os.yml
+ wget https://raw.githubusercontent.com/ansible/ansible/stable-2.9/contrib/inventory/ec2.py
+
+wget https://raw.githubusercontent.com/ansible/ansible/stable-2.9/contrib/inventory/ec2.ini
+
+chmod +x ec2.py
+
+chmod +x ec2.ini
+    
+    
+configure AWS_REGION, AWS_ACCESS_KEY_ID AND AWS_SECRET_ACCESS_KEY inside the ec2.ini file
+
+./ec2.py --list

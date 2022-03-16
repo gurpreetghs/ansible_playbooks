@@ -1,0 +1,51 @@
+- hosts: all
+  gather_facts: no
+  tasks:
+        - name: config docker repo
+          yum_repository:
+                       name: dockerrepo
+                       baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+                       description: description of docker run
+                       gpgcheck: no
+                       enabled: yum
+        - name: install docker
+          command: yum install docker-ce --nobest -y
+
+        - service: 
+                name: "docker"
+                state : started
+                enabled: yum
+        - name: install software for pip3
+          package:
+                  name: "python36"
+                  state: present
+        - name: Install python lib
+          pip:
+               name: docker-py
+
+        - name: pull docker image
+          docker_image:
+                    name: httpd
+                    source: pull
+                    tag: latest
+          register: z
+        - name: check pull images
+          debug: 
+                var: z
+        - name: creating a volume
+          file:
+               path: "/home/preet/voll"
+               state: directory
+        - name: copy file
+          copy: 
+               src: "index.html"
+               dest: "/home/preet/voll"
+        - name: launch container
+          when: z.failed == false
+          docker_container: 
+                    name: web
+                    image: httpd
+                    state: started
+                    exposed_ports: 80
+                    ports: "8888:80"
+                    volumes: /home/preet/voll:usr/local/apache2/htdocs
