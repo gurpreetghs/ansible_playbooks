@@ -1,4 +1,8 @@
-- hosts: all
+#errors 
+
+
+
+- hosts: all   #error file
   gather_facts: no
   tasks:
         - name: config docker repo

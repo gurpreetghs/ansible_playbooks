@@ -1,0 +1,9 @@
+- name: "install docker on debian"
+  hosts: al
+  become: yes
+  tasks:
+    - name: Update packages    #install docker on ubuntu or debian 
+      shell: apt update -y
+    - name: Install docker
+      shell: apt install docker.io -y
+    
