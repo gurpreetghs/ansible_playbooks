@@ -6,15 +6,15 @@
       shell: apt update -y
     - name: Install docker
       shell: apt install docker.io -y
-    - name: install software for pip3
+    - name: install python 
       package:
                   name: "python3"
                   state: present
-    - name: install software for pip3
+    - name: install python-pip
       package:
                   name: "python3-pip"
                   state: present
-    - name: Install python lib
+    - name: Install python lib for docker
       pip:
            name: docker-py
     - name: pull docker image

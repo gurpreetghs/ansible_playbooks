@@ -1,9 +1,53 @@
 - name: "install docker on debian"
   hosts: al
   become: yes
+  gather_facts: no
   tasks:
-    - name: Update packages    #install docker on ubuntu or debian 
-      shell: apt update -y
-    - name: Install docker
-      shell: apt install docker.io -y
-    
+    - name: Update packages    #install docker on aws linux
+      shell: yum update
+    - name: install python
+      package:
+              name: "python3"
+              state: present
+    - name: install python-pip
+      package:
+              name: "python-pip"
+              state: present
+    - name: Install python lib for docker
+      pip:
+          name: docker-py
+    - name: install docker
+      package:
+              name: "docker"
+              state: present
+
+    - service: 
+            name: "docker"
+            state : started
+            enabled: yes
+    - name: pull docker image
+      docker_image:
+                  name: httpd
+                  source: pull
+                  tag: latest
+      register: z
+    - name: check pull images
+      debug: 
+                var: z
+    - name: creating a volume
+      file:
+               path: "/home/preet/voll"
+               state: directory
+    - name: copy file
+      copy: 
+               src: "index.html"
+               dest: "/home/preet/voll"
+    - name: launch container
+      when: z.failed == false
+      docker_container: 
+                name: web
+                image: httpd
+                state: started
+                exposed_ports: 80
+                ports: "8888:80"
+                volumes: /home/preet/voll:/usr/local/apache2/htdocs
